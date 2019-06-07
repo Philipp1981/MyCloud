@@ -1,0 +1,46 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:id="mainStackPane" prefHeight="700" prefWidth="1000"
+           style="-fx-background-color: green; -fx-border-color: black;"
+           fx:controller="com.geekbrains.mycloud.client.Controller" alignment="center" stylesheets="styles.css">
+
+    <HBox fx:id="mainHBox" style="-fx-border-color: black; -fx-background-color: skyblue; -fx-border-width: 2">
+        <VBox fx:id="clientPanel" maxHeight="450" prefWidth="500" style="-fx-border-color: black;">
+
+            <Label fx:id="clientStorage" alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity"/>
+            <TextField fx:id="textField" promptText="Введите имя файла для его скачивания"
+                       style="-fx-border-color: black;" onAction="#pressOnDownloadBtn"/>
+
+            <Button text="LOAD FILE TO YOUR STORAGE" maxWidth="Infinity" onAction="#pressOnDownloadBtn"/>
+            <Button onAction="#addFileFromServ" maxWidth="Infinity" text="ADD FILENAME FROM SERVER"/>
+            <Button onAction="#deleteFile" maxWidth="Infinity" text="DELETE FILE FROM YOUR STORAGE"/>
+            <ListView fx:id="myListView" maxHeight="Infinity" maxWidth="Infinity" style="-fx-border-color: black;"/>
+
+        </VBox>
+        <VBox fx:id="serverPanel" maxHeight="450" prefWidth="500"
+              style="-fx-border-color: black; -fx-background-color: #eee">
+
+            <Label fx:id="serverStorage" text="SERVER STORAGE" prefHeight="160" alignment="TOP_CENTER"
+                   maxWidth="Infinity" style="-fx-background-color: skyblue;"/>
+
+            <Button fx:id="btn" text="LOAD FILES TO SERVER" onAction="#addFiles" maxWidth="Infinity"/>
+            <Button text="DELETE FILES FROM SERVER" onAction="#deleteServerFile" maxWidth="Infinity"/>
+            <Button text="REFRESH SERVER STORAGE" onAction="#refreshServerStorage" maxWidth="Infinity"/>
+            <!--<Label fx:id="filesDragAndDrop" alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity"-->
+            <!--style="-fx-background-color: #eee" text="Drop files here!" wrapText="true"/>-->
+            <ListView fx:id="serverListView" maxHeight="Infinity" maxWidth="Infinity" style="-fx-border-color: black;"/>
+        </VBox>
+        <VBox fx:id="serverSizePanel" maxHeight="450" prefWidth="250"
+              style="-fx-border-color: black; -fx-background-color: skyblue">
+            <Label fx:id="serverSizeStorage" text="FILE SIZE" prefHeight="260" alignment="TOP_CENTER"
+                   maxWidth="Infinity"/>
+
+            <ListView fx:id="serverSizeListView" maxHeight="Infinity" maxWidth="Infinity"
+                      style="-fx-border-color: black;"/>
+        </VBox>
+    </HBox>
+
+    <!--<Slider/>-->
+    <!--<ProgressBar/>-->
+    <!--</VBox>-->
+</StackPane>

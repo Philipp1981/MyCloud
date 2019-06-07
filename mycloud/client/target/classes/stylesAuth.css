@@ -1,0 +1,13 @@
+#openPanel{
+    -fx-background-image: url(pejzazh.jpg);
+}
+
+.button {
+ -fx-background-color: linear-gradient(#ffff00 0%, #aaffaa 50%, #00ff00 100%);
+}
+
+#messageToUser, #messageToUserRegistration{
+    -fx-stroke-width: 0.9;
+    -fx-font-size: 25;
+    -fx-fill: black;
+    }

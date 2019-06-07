@@ -1,0 +1,8 @@
+com\geekbrains\mycloud\common\FileDeleteMessage.class
+com\geekbrains\mycloud\common\RefreshSrvFileListMessage.class
+com\geekbrains\mycloud\common\FileRequest.class
+com\geekbrains\mycloud\common\RegMessage.class
+com\geekbrains\mycloud\common\AuthMessage.class
+com\geekbrains\mycloud\common\AbstractMessage.class
+com\geekbrains\mycloud\common\RefreshMessage.class
+com\geekbrains\mycloud\common\FileMessage.class
