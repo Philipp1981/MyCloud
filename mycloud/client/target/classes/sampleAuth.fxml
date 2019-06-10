@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Label?>
-
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
             stylesheets="stylesAuth.css"
             prefWidth="700"
@@ -21,8 +12,9 @@
           AnchorPane.rightAnchor="170" AnchorPane.leftAnchor="170" AnchorPane.topAnchor="180">
         <Label fx:id="messageToUser"/>
         <TextField fx:id="loginField" promptText="Login" layoutX="20" layoutY="20" HBox.hgrow="ALWAYS"/>
-        <PasswordField  fx:id="passwordField" promptText="Password" onAction="#sendAuthMessage"/>
-        <Button fx:id="button" prefWidth="100" onAction="#sendAuthMessage" text="Enter" textAlignment="CENTER" alignment="CENTER"/>
+        <PasswordField fx:id="passwordField" promptText="Password" onAction="#sendAuthMessage"/>
+        <Button fx:id="button" prefWidth="100" onAction="#sendAuthMessage" text="Enter" textAlignment="CENTER"
+                alignment="CENTER"/>
     </VBox>
     <HBox spacing="50"
           alignment="CENTER"
@@ -36,8 +28,8 @@
           AnchorPane.rightAnchor="170" AnchorPane.leftAnchor="170" AnchorPane.topAnchor="150" spacing="10"
           alignment="CENTER">
         <Label fx:id="messageToUserRegistration"/>
-        <TextField  fx:id="loginFieldReg" promptText="Enter login"/>
-        <PasswordField fx:id="passwordField1"  promptText="Enter password"/>
+        <TextField fx:id="loginFieldReg" promptText="Enter login"/>
+        <PasswordField fx:id="passwordField1" promptText="Enter password"/>
         <PasswordField fx:id="passwordField2" onAction="#sendAuthMessage" promptText="Enter password again"/>
         <Button fx:id="but2" onAction="#sendRegMessage" text="Register"/>
         <Button fx:id="but3" onAction="#exitReg" text="Exit from registration"/>

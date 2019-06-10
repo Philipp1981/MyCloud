@@ -35,7 +35,7 @@ import java.util.*;
 public class Controller implements Initializable {
 
 
-    public static TreeMap<String, Long> map;
+
     @FXML
     TextField textField;
     @FXML
@@ -58,11 +58,13 @@ public class Controller implements Initializable {
     Label clientStorage;
     @FXML
     Button btn;
+
     Desktop desktop = Desktop.getDesktop();
     FileChooser fileChooser = new FileChooser();
     List<String> sl = new ArrayList<>();
     String userLog = UserLogin.getLogin();
     String clientPath = "client_storage/" + userLog + "/";
+    TreeMap<String, Long> map;
     double dragDeltaX, dragDeltaY;
 
     @Override
@@ -89,12 +91,16 @@ public class Controller implements Initializable {
                     }
 
                     if (am instanceof RefreshSrvFileListMessage) {
+
                         RefreshSrvFileListMessage refreshSrvFileListMessage = (RefreshSrvFileListMessage) am;
+
                         map = refreshSrvFileListMessage.getFindFiles();
-                        for (Map.Entry<String, Long> entry : map.entrySet()) {
-                            serverListView.getItems().add(entry.getKey());
-                            serverSizeListView.getItems().add(entry.getValue().toString() + " byte");
-                        }
+                        Platform.runLater(() -> {
+                            for (Map.Entry<String, Long> entry : map.entrySet()) {
+                                serverListView.getItems().add(entry.getKey());
+                                serverSizeListView.getItems().add(entry.getValue().toString() + " byte");
+                            }
+                        });
                     }
                 }
             } catch (ClassNotFoundException | IOException e) {
@@ -109,11 +115,9 @@ public class Controller implements Initializable {
         t.start();
         clientStorage.setText("CLIENT STORAGE: " + userLog);
         refreshLocalFilesList();
-        try {
-            refreshServerStorage();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
+
+        refreshServerStorage();
+
     }
 
     // при нажатии кнопки Load File, если textField содержит текст, посылаем сообщение типа FileRequest серверу
@@ -149,56 +153,18 @@ public class Controller implements Initializable {
         }
     }
 
-//    public void refreshServerFilesList() {   //обновление списка файлов в хранилище клиента
-//
-//        RefreshMessage refreshMessage = new RefreshMessage("refresh");
-//        Network.sendRefreshMessage(refreshMessage);
-//
-//        Thread serverFilesListener = new Thread(() -> {
-//
-//                    for (Map.Entry<String, Long> entry : map.entrySet()) {
-//                    serverListView.getItems().clear();
-//                    serverListView.getItems().add(entry.getKey());
-//                    serverSizeListView.getItems().clear();
-//                    serverSizeListView.getItems().add(entry.getValue().toString());}
-//
-//        });
-//        serverFilesListener.setDaemon(true);
-//        serverFilesListener.start();
-//
-//    }
-//
-//    public void refreshServerSizeFilesList() {   //обновление списка файлов в хранилище клиента
-//
-//
-////        if (Platform.isFxApplicationThread()) {
-////            try {
-////                serverSizeListView.getItems().clear();
-////                Files.list(Paths.get("server_storage/")).map(p -> p.getFileName().toString()).forEach(o -> serverSizeListView.getItems().add(o.length()+" bytes"));
-////            } catch (IOException e) {
-////                e.printStackTrace();
-////            }
-////        } else {
-////            Platform.runLater(() -> {
-////                try {
-////                    Files.list(Paths.get("server_storage/")).map(p -> p.getFileName().toString()).forEach(o ->serverSizeListView.getItems().add(o.length()+" bytes"));
-////                    serverSizeListView.getItems().clear();
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-////            });
-////        }
-//    }
 
     public void refreshServerStorage() {
-        try {
-            serverListView.getItems().clear();
-            serverSizeListView.getItems().clear();
-            RefreshMessage refreshMessage = new RefreshMessage("refresh");
-            Network.sendRefreshMessage(refreshMessage);
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
+
+            try {
+                serverListView.getItems().clear();
+                serverSizeListView.getItems().clear();
+
+                RefreshMessage refreshMessage = new RefreshMessage("refresh");
+                Network.sendRefreshMessage(refreshMessage);
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
     }
 
     // добавление файла с машины клиента в хранилище сервера при нажатии кнопки add Files
@@ -209,11 +175,9 @@ public class Controller implements Initializable {
 
         FileMessage fmsg = new FileMessage(Paths.get(file.getAbsolutePath()));
         Network.sendMsg(fmsg);
-        try {
-            refreshServerStorage();
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
+
+        refreshServerStorage();
+
     }
 
     // добавление файла с машины клиента в хранилище сервера (посредством перетаскивания файла в окно DragAndDrop)
@@ -232,16 +196,7 @@ public class Controller implements Initializable {
             if (db.hasFiles()) {
                 for (File o : db.getFiles()) {
                     sl.add(o.getName());
-//                    for (String a : sl) {
-//                        long count = o.length();
-//                        serverListView.getItems().add(a);
-//                        refreshServerStorage();
-//                        serverSizeListView.getItems().add(count + "  bytes");
-//                        refreshServerSizeFilesList();
-////                        if (!Files.exists(Paths.get("server_storage/" + o.getName()))) {
-////                            System.out.println(o.getPath() + "  : " + count + "  bytes");
-////                        }else System.out.println("File:  "+o.getName() + "  - already exist on server storage");
-//                    }
+
                     FileMessage fmsg1 = null;
                     try {
                         fmsg1 = new FileMessage(Paths.get(o.getAbsolutePath()));
@@ -249,11 +204,9 @@ public class Controller implements Initializable {
                         e.printStackTrace();
                     }
                     Network.sendMsg(fmsg1);
-                    try {
-                        refreshServerStorage();
-                    } catch (IllegalStateException e) {
-                        e.printStackTrace();
-                    }
+
+                    refreshServerStorage();
+
 
                     serverListView.setOnMousePressed(new EventHandler<MouseEvent>() {
                         @Override
@@ -345,11 +298,9 @@ public class Controller implements Initializable {
                 System.out.println("File: " + serverListView.getSelectionModel().getSelectedItem() +
                         " - was deleted from server storage");
                 Network.sendFdm(fileDelName);
-                try {
-                    refreshServerStorage();
-                } catch (IllegalStateException e) {
-                    e.printStackTrace();
-                }
+
+                refreshServerStorage();
+
             }
         }
     }

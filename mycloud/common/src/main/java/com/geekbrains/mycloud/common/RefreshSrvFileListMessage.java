@@ -11,9 +11,7 @@ public class RefreshSrvFileListMessage extends AbstractMessage {
 
     public RefreshSrvFileListMessage(TreeMap<String, Long> map) {
         this.findFiles = map;
-//        getFindFiles();
-//        this.file=getFile();
-//        this.size=getSize();
+
     }
 
 

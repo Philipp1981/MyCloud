@@ -87,7 +87,7 @@ public class MainHandler extends ChannelInboundHandlerAdapter {
                 RefreshMessage refreshMessage = (RefreshMessage) msg;
                 if (refreshMessage.getRefresh().equals("refresh")) {
 
-                    Files.walkFileTree(Paths.get("server_storage/"), EnumSet.noneOf(FileVisitOption.class), 2, new FileVisitor<Path>() {
+                    Files.walkFileTree(Paths.get("server_storage/"), EnumSet.noneOf(FileVisitOption.class), 1, new FileVisitor<Path>() {
                         @Override
                         public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
                             return FileVisitResult.CONTINUE;
